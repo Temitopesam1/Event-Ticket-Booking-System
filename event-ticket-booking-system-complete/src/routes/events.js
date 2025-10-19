@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const ctrl = require('../controllers/eventController');
+const { requireAdmin } = require('../middleware/auth');
+const rateLimit = require('express-rate-limit');
+const adminLimiter = rateLimit({ windowMs: 15*60*1000, max: 20, message: { error: { message: 'Too many admin requests, try later.' } } });
+router.post('/initialize', adminLimiter, requireAdmin, ctrl.create);
+router.post('/book', ctrl.book);
+router.post('/cancel', ctrl.cancel);
+router.get('/status/:eventId', ctrl.status);
+module.exports = router;

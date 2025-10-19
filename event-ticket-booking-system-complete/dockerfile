@@ -1,0 +1,16 @@
+FROM node:20-alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN apk add --no-cache bash postgresql-client
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+# wait for Postgres to be ready, then run migrations/seed and start
+CMD ["sh", "-c", "until pg_isready -h ${DB_HOST:-db} -p ${DB_PORT:-5432} -U ${DB_USER:-postgres}; do echo waiting for db; sleep 1; done; npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npm start"]
+
