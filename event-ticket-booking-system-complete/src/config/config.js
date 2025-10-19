@@ -2,9 +2,9 @@ require('dotenv').config();
 
 function buildUrlFromEnv(prefix = '') {
   const host = process.env[`${prefix}DB_HOST`] || process.env.DB_HOST;
-  const port = process.env[`${prefix}DB_PORT`] || process.env.DB_PORT || 5432;
-  const user = process.env[`${prefix}DB_USER`] || process.env.DB_USER || 'postgres';
-  const pass = process.env[`${prefix}DB_PASSWORD`] || process.env.DB_PASSWORD || 'postgres';
+  const port = process.env[`${prefix}DB_PORT`] || process.env.DB_PORT;
+  const user = process.env[`${prefix}DB_USER`] || process.env.DB_USER;
+  const pass = process.env[`${prefix}DB_PASSWORD`] || process.env.DB_PASSWORD;
   const name = process.env[`${prefix}DB_NAME`] || process.env.DB_NAME;
   if (host && name) return `postgres://${user}:${pass}@${host}:${port}/${name}`;
   return undefined;

@@ -21,4 +21,7 @@ coverage/
 Thumbs.db
 desktop.ini
 # OneDrive temporary files
+postman_collection.json
+.github/
+docker-compose.yml
 ~$*
